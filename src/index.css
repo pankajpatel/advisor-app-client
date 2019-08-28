@@ -1,13 +1,27 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #333333;
+  --color-gray-555: #555555;
+  --color-gray-888: #888888;
+  --color-gray-ccc: #cccccc;
+
+  --color-dark-gray: var(--color-gray-555);
+  --color-gray: var(--color-gray-888);
+  --color-light-gray: var(--color-gray-ccc);
+
+  --color-orange-soda: rgba(249, 87, 56, 1);
+  --color-blond: rgba(244, 241, 187, 1);
+  --color-cambridge-blue: rgba(155, 193, 188, 1);
+  --color-cadet-blue: rgba(92, 164, 169, 1);
+  --color-paltinum: rgba(230, 235, 224, 1);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
