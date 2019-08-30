@@ -12,23 +12,31 @@ const ProfileContainer = styled.div`
   }
 `;
 const ProfileImg = styled.img`
-  width: 300px;
-  height: 300px;
-  border: 1px solid var(--color-light-gray);
+  width: 250px;
+  height: 250px;
+  max-width: 250px;
+  flex: 1 250px;
+  border: 1px solid var(--color-orange-soda);
   border-radius: 0.5rem;
+  margin-right: 1rem;
+  background: var(--color-cambridge-blue);
 `;
 const ProfileInfo = styled.div`
   display: flex;
   flex-direction: row;
+  & h1 {
+    margin: 0;
+    padding-bottom: 1rem;
+  }
 `;
 
-const Advisor = ({ advisor }) => (
+const Advisor = props => (
   <Container>
     <Link to="/">← Go Back to List</Link>
     <ProfileContainer>
-      <ProfileImg src={advisor.avatar} alt="" />
+      <ProfileImg src={''} alt="" />
       <ProfileInfo>
-        <h1>{advisor.name}</h1>
+        <h1>Advisor's Profile</h1>
       </ProfileInfo>
     </ProfileContainer>
   </Container>

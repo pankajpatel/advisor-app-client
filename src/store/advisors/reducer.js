@@ -38,6 +38,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        hasMore: action.payload.hasMore,
         advisors: [].concat(state.advisors, action.payload.advisors),
       };
 

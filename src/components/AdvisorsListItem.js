@@ -8,8 +8,9 @@ const Artwork = styled.img`
   height: 100px;
   flex: 1 100px;
   max-width: 100px;
+  min-width: 100px;
   display: inline-block;
-  margin-right: 1.5rem;
+  margin-right: 1rem;
   border-radius: 50%;
   box-shadow: 0px 0px 4px 1px var(--color-light-gray);
 `;
@@ -25,53 +26,10 @@ const ToPage = styled(Link)`
   opacity: 0.3;
 `;
 
-const ChartPosition = styled.div`
-  position: absolute;
-  bottom: 0.7rem;
-  left: 1.5rem;
-  font-size: 5rem;
-  color: #ededed;
-  z-index: 1;
-  opacity: 0.8;
-  transition: all ease 200ms;
-  text-shadow: 0 2px 5px rgba(100, 100, 100, 0.4);
-`;
-const Article = styled.article`
-  margin: 1.5rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(100, 100, 100, 0.2);
-  border-radius: 0.4rem;
-  background: #f6f8ff;
-  background: -webkit-linear-gradient(to right, #f6f8ff, #efefef);
-  background: linear-gradient(to right, #f6f8ff, #efefef);
-  transition: all ease 200ms;
-  position: relative;
+const Profile = styled.div`
   display: flex;
-  & > * {
-    flex: 1 auto;
-  }
-  &:hover {
-    box-shadow: 0px 10px 25px rgba(100, 100, 100, 0.2);
-    & ${ToPage} {
-      opacity: 1;
-    }
-    & ${ChartPosition} {
-      opacity: 0.3;
-    }
-  }
-`;
-const Icon = styled.img`
-  width: auto;
-  height: 1em;
-  display: block;
-  flex: 1 auto;
-  transform: rotate(180deg);
-`;
-const Name = styled.h1`
-  font-size: 2rem;
-  font-weight: normal;
-  flex: 1 300px;
-  max-width: 300px;
+  flex-direction: row;
+  flex: 1 450px;
 `;
 const MetaInfo = styled.div`
   text-align: center;
@@ -86,11 +44,68 @@ const MetaInfo = styled.div`
     }
   }
 `;
+const Article = styled.article`
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(100, 100, 100, 0.2);
+  border-radius: 0.4rem;
+  background: #f6f8ff;
+  background: -webkit-linear-gradient(to right, #f6f8ff, #efefef);
+  background: linear-gradient(to right, #f6f8ff, #efefef);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  & > * {
+    flex: 1 auto;
+  }
+  & * {
+    transition: all ease 200ms;
+  }
+  &:hover {
+    box-shadow: 0px 10px 25px rgba(100, 100, 100, 0.2);
+    & ${ToPage} {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 900px) {
+    & ${Profile} {
+      flex: 1 300px;
+    }
+  }
+  @media (max-width: 768px) {
+    & ${Profile} {
+      flex: 1 100%;
+      width: 100%;
+    }
+    & ${MetaInfo} > span:first-child {
+      font-size: 2rem;
+      margin-top: 1rem;
+    }
+  }
+`;
+const Icon = styled.img`
+  width: auto;
+  height: 1em;
+  display: block;
+  flex: 1 auto;
+  transform: rotate(180deg);
+`;
+const Name = styled.h1`
+  font-size: 2rem;
+  font-weight: normal;
+  flex: 1 250px;
+  max-width: 250px;
+  min-width: 250px;
+`;
 
 export default ({ advisor }) => (
   <Article>
-    <Artwork src={advisor.avatar} />
-    <Name>{advisor.name}</Name>
+    <Profile>
+      <Artwork src={advisor.avatar} />
+      <Name>{advisor.name}</Name>
+    </Profile>
     <MetaInfo>
       <span>{advisor.languages.length}</span>
       <span>Languages</span>

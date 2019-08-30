@@ -51,9 +51,11 @@ const getAdvisors = (api, limit = 20, offset = 0) => {
 
 export const fetchAdvisors = (resultsAction = fetchAdvisorsSuccess) => {
   return (dispatch, getState, { api }) => {
-    const { page } = getState();
+    const {
+      advisors: { page },
+    } = getState();
     const limit = api.limit;
-    const offset = (page - 1) * api.limit;
+    const offset = (+page - 1) * api.limit;
     dispatch(fetchAdvisorsBegin());
     return getAdvisors(api, limit, offset)
       .then(json => {
