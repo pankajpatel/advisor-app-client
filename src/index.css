@@ -25,3 +25,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+}
