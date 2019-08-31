@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "author": "Pnakaj Patel(http://pankaj.pro)",
   "dependencies": {
     "@loadable/component": "^5.10.2",
     "cross-fetch": "^3.0.4",

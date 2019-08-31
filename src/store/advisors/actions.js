@@ -8,6 +8,8 @@ export const APPEND_ADVISORS = 'APPEND_ADVISORS';
 export const UPDATE_ADVISORS = 'UPDATE_ADVISORS';
 export const FILTER_ADVISORS = 'FILTER_ADVISORS';
 export const SORT_ADVISORS = 'SORT_ADVISORS';
+export const RESET_FILTER_ADVISORS = 'RESET_FILTER_ADVISORS';
+export const RESET_SORT_ADVISORS = 'RESET_SORT_ADVISORS';
 
 export const FILTERS = {
   language(advisors, langKey) {
@@ -104,10 +106,17 @@ export const updateAdvisors = advisors => ({
   payload: { advisors },
 });
 
-export const appendAdvisors = json => ({
+export const appendAdvisors = payload => ({
+  payload,
   type: APPEND_ADVISORS,
-  payload: json,
 });
+
+export const resetSortAdvisors = payload => ({
+  payload,
+  type: RESET_SORT_ADVISORS,
+});
+
+export const resetFilterAdvisors = resetSortAdvisors;
 
 export const filterAdvisors = filters => {
   return (dispatch, getState) => {
@@ -131,8 +140,15 @@ export const sortAdvisors = sort => {
     const state = getState();
 
     const { by, order } = sorters[sort.sort];
-
-    const advisors = [].concat(SORTERS[by][order](state.advisors.advisors));
-    dispatch(updateAdvisors(advisors));
+    const advisors = []
+    if (by && order) {
+      advisors.concat(SORTERS[by][order](state.advisors.advisors));
+    } else {
+      advisors.concat(state.advisors.advisors)
+    }
+    dispatch(resetSortAdvisors({
+      advisors,
+      hasMore: state.advisors.hasMore,
+    }));
   };
 };

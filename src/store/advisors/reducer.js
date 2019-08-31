@@ -6,10 +6,13 @@ import {
   UPDATE_ADVISORS,
   APPEND_ADVISORS,
   FILTER_ADVISORS,
+  RESET_FILTER_ADVISORS,
+  RESET_SORT_ADVISORS,
 } from './actions';
 
 const initialState = {
   advisors: [],
+  _advisors: null,
   loading: false,
   error: null,
   hasMore: true,
@@ -25,11 +28,14 @@ export default (state = initialState, action) => {
         error: null,
       };
 
+    case RESET_FILTER_ADVISORS:
+    case RESET_SORT_ADVISORS:
     case UPDATE_ADVISORS:
     case FETCH_ADVISORS_SUCCESS:
       return {
         ...state,
         loading: false,
+        _advisors: null,
         advisors: action.payload.advisors,
         hasMore: action.payload.hasMore,
       };
@@ -57,6 +63,12 @@ export default (state = initialState, action) => {
       };
 
     case FILTER_ADVISORS:
+      return {
+        ...state,
+        loading: false,
+        _advisors: state[state._advisors ? '_advisors' : 'advisors'],
+      };
+
     default:
       return state;
   }
