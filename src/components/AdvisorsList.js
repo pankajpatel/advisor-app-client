@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { connect } from 'react-redux';
 import ConfigContext from '../ConfigContext';
 import { AdvisorsListItem, Select } from './';
-import { List, FloatRight, Clearfix, FloatLeft } from '../styled';
+import { FloatRight, Clearfix, FloatLeft } from '../styled';
 import { triggerFilter, triggerSort } from '../store/ui/actions';
 
 const AdvisorsList = props => {
   const { advisors, language } = props;
   const { languages, sorters } = useContext(ConfigContext);
-  const langRef = React.createRef();
-  const sortRef = React.createRef();
+  const langRef = useRef(null);
+  const sortRef = useRef(null);
 
   const changeLang = () => {
     const key = langRef.current.value;
@@ -46,13 +46,9 @@ const AdvisorsList = props => {
           </Select>
         </FloatRight>
       </Clearfix>
-      <List>
-        {advisors.map(advisor => (
-          <li key={advisor.uuid}>
-            <AdvisorsListItem advisor={advisor} />
-          </li>
-        ))}
-      </List>
+      {advisors.map(advisor => (
+        <AdvisorsListItem advisor={advisor} key={advisor.uuid}/>
+      ))}
     </>
   );
 };

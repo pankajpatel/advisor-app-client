@@ -15,12 +15,13 @@ const SelectContainer = styled.div`
   background-size: 13px;
   background-position: calc(100% - 11px);
   margin: 0 0.5rem;
+  padding-right: 1.5rem;
 `;
 
 const SelectEl = styled.select`
   font-size: 1rem;
   padding: 0.5rem;
-  width: 130%;
+  width: calc(100% + 1.5rem);
   border: none;
   box-shadow: none;
   background: transparent;

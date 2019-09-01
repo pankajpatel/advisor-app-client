@@ -1,4 +1,6 @@
 import fetch from 'cross-fetch';
+import FILTERS from './filters';
+import SORTERS from './sorters';
 
 export const FETCH_ADVISORS_BEGIN = 'FETCH_ADVISORS_BEGIN';
 export const FETCH_ADVISORS_SUCCESS = 'FETCH_ADVISORS_SUCCESS';
@@ -10,38 +12,6 @@ export const FILTER_ADVISORS = 'FILTER_ADVISORS';
 export const SORT_ADVISORS = 'SORT_ADVISORS';
 export const RESET_FILTER_ADVISORS = 'RESET_FILTER_ADVISORS';
 export const RESET_SORT_ADVISORS = 'RESET_SORT_ADVISORS';
-
-export const FILTERS = {
-  language(advisors, langKey) {
-    return advisors.filter(advisor => advisor.languages.includes(langKey));
-  },
-};
-export const SORTERS = {
-  languages: {
-    ASC(advisors) {
-      return advisors.sort((a, b) => a.languages.length - b.languages.length);
-    },
-    DESC(advisors) {
-      return advisors.sort((a, b) => b.languages.length - a.languages.length);
-    },
-  },
-  reviewsCount: {
-    ASC(advisors) {
-      return advisors.sort((a, b) => a.reviewsCount - b.reviewsCount);
-    },
-    DESC(advisors) {
-      return advisors.sort((a, b) => b.reviewsCount - a.reviewsCount);
-    },
-  },
-  'ratings.average': {
-    ASC(advisors) {
-      return advisors.sort((a, b) => a.ratings.average - b.ratings.average);
-    },
-    DESC(advisors) {
-      return advisors.sort((a, b) => b.ratings.average - a.ratings.average);
-    },
-  },
-};
 
 const getAdvisors = (api, limit = 20, offset = 0) => {
   const method = 'GET';
@@ -138,17 +108,19 @@ export const sortAdvisors = sort => {
     dispatch({ type: SORT_ADVISORS, payload: sort });
 
     const state = getState();
-
-    const { by, order } = sorters[sort.sort];
-    const advisors = []
-    if (by && order) {
-      advisors.concat(SORTERS[by][order](state.advisors.advisors));
+    const sortConfig = sorters[sort.sort];
+    if (sortConfig) {
+      const { by, order } = sortConfig;
+      const advisors = [].concat(SORTERS[by][order](state.advisors.advisors));
+      dispatch(updateAdvisors(advisors));
     } else {
-      advisors.concat(state.advisors.advisors)
+      const advisors = [].concat(state.advisors._advisors);
+      dispatch(
+        resetSortAdvisors({
+          advisors,
+          hasMore: state.advisors.hasMore,
+        }),
+      );
     }
-    dispatch(resetSortAdvisors({
-      advisors,
-      hasMore: state.advisors.hasMore,
-    }));
   };
 };

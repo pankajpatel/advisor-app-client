@@ -5,13 +5,14 @@ import { Button, CenteredContainer } from '../styled';
 export default props => {
   const { error, loading, advisors, hasMore } = props;
   const loadMore = () => {
-    props.loadMoreAdvisors();
+    !loading && hasMore && props.loadMoreAdvisors();
   };
   const loader = (
     <InView onChange={(e, entry) => entry.isIntersecting && loadMore()}>
-      <Button onClick={() => loadMore()}>Load More...</Button>
+      <Button onClick={loadMore}>Load More...</Button>
     </InView>
   );
+
   return (
     <div>
       {!loading && !error && advisors.length ? (
@@ -24,4 +25,6 @@ export default props => {
       </CenteredContainer>
     </div>
   );
+
+  
 };

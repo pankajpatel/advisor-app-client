@@ -3,6 +3,7 @@ import { SET_FILTER, SET_SORT } from './actions';
 const initialState = {
   filters: { language: null },
   sort: null,
+  advisor: null,
 };
 
 export default (state = initialState, action) => {
@@ -17,7 +18,6 @@ export default (state = initialState, action) => {
         ...state,
         sort: action.payload.sort,
       };
-
     default:
       return state;
   }

@@ -1,45 +1,51 @@
-import React from 'react';
-import { Link } from '../components';
-import { Container } from '../styled';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Link, Loading, AdvisorProfile } from '../components';
+import { selectAdvisor } from '../store/advisor/actions';
+import { Container, CenteredContainer } from '../styled';
 
-const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: row;
+const Advisor = props => {
+  const { match, advisor, loading, error, selectAdvisor, config } = props;
 
-  & > * {
-    flex: 1 auto;
-  }
-`;
-const ProfileImg = styled.img`
-  width: 250px;
-  height: 250px;
-  max-width: 250px;
-  flex: 1 250px;
-  border: 1px solid var(--color-orange-soda);
-  border-radius: 0.5rem;
-  margin-right: 1rem;
-  background: var(--color-cambridge-blue);
-`;
-const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  & h1 {
-    margin: 0;
-    padding-bottom: 1rem;
-  }
-`;
+  useEffect(() => {
+    if (match.params.uuid === advisor.uuid) {
+      return;
+    }
+    !loading && selectAdvisor(match.params.uuid);
+  }, [loading, advisor, match, selectAdvisor]);
 
-const Advisor = props => (
-  <Container>
-    <Link to="/">← Go Back to List</Link>
-    <ProfileContainer>
-      <ProfileImg src={''} alt="" />
-      <ProfileInfo>
-        <h1>Advisor's Profile</h1>
-      </ProfileInfo>
-    </ProfileContainer>
-  </Container>
+  const languages = config.languages.reduce(
+    (acc, lang) => Object.assign(acc, { [lang.locale]: lang }),
+    {},
+  );
+
+  return (
+    <Container>
+      <Link to="/">← Go Back to List</Link>
+      {!loading && !error && advisor.uuid ? (
+        <AdvisorProfile advisor={advisor} languages={languages} />
+      ) : null}
+      {loading ? <Loading /> : null}
+      <CenteredContainer>
+        {error ? <div>Error! {error.message}</div> : null}
+      </CenteredContainer>
+    </Container>
+  );
+};
+
+const mapStateToProps = state => ({
+  advisor: state.advisor.advisor,
+  loading: state.advisor.loading,
+  error: state.advisor.error,
+});
+const mapDispatchToProps = dispatch => ({
+  selectAdvisor: id => dispatch(selectAdvisor(id)),
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Advisor),
 );
-
-export default Advisor;

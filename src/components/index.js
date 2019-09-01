@@ -6,3 +6,4 @@ export { default as AdvisorsListItem } from './AdvisorsListItem';
 export { default as Select } from './Select';
 export { default as InfinitelyPaginated } from './InfinitelyPaginated';
 export { default as InView } from './InView';
+export { default as AdvisorProfile } from './AdvisorProfile';

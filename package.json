@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "author": "Pnakaj Patel(http://pankaj.pro)",
+  "author": "Pnakaj Patel (http://pankaj.pro)",
   "dependencies": {
     "@loadable/component": "^5.10.2",
     "cross-fetch": "^3.0.4",
@@ -18,7 +18,9 @@
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "react-scripts": "3.1.1"
+    "@testing-library/react": "^9.1.3",
+    "react-scripts": "3.1.1",
+    "react-test-renderer": "^16.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

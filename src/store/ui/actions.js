@@ -12,6 +12,7 @@ export const triggerFilter = language => {
     );
   };
 };
+
 export const triggerSort = sort => {
   return dispatch => {
     dispatch(setSort({ sort }));
@@ -22,10 +23,12 @@ export const triggerSort = sort => {
     );
   };
 };
+
 export const setFilter = language => ({
   type: SET_FILTER,
   payload: language,
 });
+
 export const setSort = sort => ({
   type: SET_SORT,
   payload: sort,

@@ -11,7 +11,7 @@ const Advisors = props => {
   };
 
   useEffect(() => {
-    loadAdvisors();
+    !advisors.length && !loading && loadAdvisors();
   });
 
   return (

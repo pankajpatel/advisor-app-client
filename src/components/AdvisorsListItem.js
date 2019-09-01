@@ -73,6 +73,12 @@ const Article = styled.article`
     & ${Profile} {
       flex: 1 300px;
     }
+
+    & ${ToPage} {
+      position: absolute;
+      right: 1rem;
+      top: 2.5rem;
+    }
   }
   @media (max-width: 768px) {
     & ${Profile} {
@@ -81,6 +87,12 @@ const Article = styled.article`
     }
     & ${MetaInfo} > span:first-child {
       font-size: 2rem;
+      margin-top: 1rem;
+    }
+  }
+  @media (max-width: 520px) {
+    & ${MetaInfo} > span:first-child {
+      font-size: 1.5rem;
       margin-top: 1rem;
     }
   }
